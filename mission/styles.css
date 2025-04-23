@@ -1,43 +1,51 @@
+/* Set default font and size */
 body {
     font-size: 20px;
     font-family: "Times New Roman", serif;
 }
 
+/* Remove bottom margin to make look more like image */
 h1 {
     margin-bottom: 0;
 }
 
+/* Adjust subtitle to be blue with light grey border underneath */
 .subtitle {
     color: #006EB6;
     font-size: 0.8em;
     font-weight: normal;
-    margin-bottom: 50px;
+    margin-bottom: 45px;
     border-bottom: 1px solid lightgrey;
 }
 
+/* Wrapped content in black border and adjusted margin/padding */
 .content {
     text-align: left;
     max-width: 600px;
     margin: 40px auto;
     line-height: 1.5;
-    padding: 25px 150px;
+    padding: 50px 150px 0px 150px;
     border: 1px solid grey;
 }
 
+/* Center, add spacing, and uppercase title and subtitle */
 .content header {
     text-align: center;
     text-transform: uppercase;
     letter-spacing: 4px;
 }
 
+/* "Intro" part of list */
 .list-intro {
     font-style: italic;
 }
 
+/* Added spacing between each list item */
 li {
     margin-bottom: 20px;
 }
 
+/* Centering image */
 img {
     display: block;
     margin: 0 auto;
