@@ -9,7 +9,7 @@ body {
     color: white;
 }
 
-.dark h2 {
+.dark .subtitle {
     color: rgb(160, 212, 237);
 }
 

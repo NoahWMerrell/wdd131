@@ -4,17 +4,13 @@ let logo = document.querySelector('img');
 selectElem.addEventListener('change', changeTheme);
 
 function changeTheme() {
-    let current = selectElem.value;
+    let current = selectElem.value; // Get value from selector
+    const logo = document.querySelector('#logo'); // Add variable for logo
     if (current == 'dark') {
-        // change body to dark
-        document.body.className = 'dark';
-
-        // change logo to the new logo
-        document.querySelector('#logo').setAttribute('src', 'byui-logo_white.png');
+        document.body.className = 'dark'; // Change body to dark by adding the dark class
+        logo.setAttribute('src', 'byui-logo_white.png'); // Change logo to the new logo
     } else {
-        // remove dark class from body
-        document.body.classList.remove('dark');
-        // change logo back 
-        document.querySelector('#logo').setAttribute('src', 'byui-logo_blue.webp');
+        document.body.classList.remove('dark'); // Remove dark class from body
+        logo.setAttribute('src', 'byui-logo_blue.webp'); // Change logo back
     }
 }
