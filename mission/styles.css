@@ -4,6 +4,15 @@ body {
     font-family: "Times New Roman", serif;
 }
 
+.dark {
+    background-color: #333;
+    color: white;
+}
+
+.dark h2 {
+    color: rgb(160, 212, 237);
+}
+
 /* Remove bottom margin to make look more like image */
 h1 {
     margin-bottom: 0;
