@@ -53,11 +53,8 @@ nav {
 .gallery {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 1rem;
-}
-
-.gallery figure {
-    padding: 1rem;
+    gap: 3rem;
+    margin: 1rem;
 }
 
 img {
@@ -80,9 +77,13 @@ img {
 }
 
 @media screen and (min-width: 1000px) {
-    header, main, footer {
-        padding-left: 15rem;
-        padding-right: 15rem;
+    header, footer {
+        padding-left: 6rem;
+        padding-right: 6rem;
+    }
+    main {
+        padding-left: 10rem;
+        padding-right: 10rem;
     }
     
     nav {
