@@ -110,10 +110,6 @@ dialog img {
     .gallery {
         grid-template-columns: 1fr 1fr;
     }
-
-    nav {
-        display: none;
-    }
 }
 
 @media screen and (min-width: 1000px) {
