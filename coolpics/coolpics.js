@@ -27,8 +27,13 @@ const closeViewer = document.querySelector(".close-viewer");
 
 gallery.querySelectorAll('img').forEach(image => {
   image.addEventListener('click', () => {
-    modal.querySelector('img').src = image.src;
-    modal.querySelector('img').alt = image.alt;
+    // Gets image ending in "-full.jpeg"
+    const originalImg = image.src.split('-')[0];
+    const fullImg = originalImg + '-full.jpeg';
+
+    const modalImg = modal.querySelector('img');
+    modalImg.src = fullImg;
+    modalImg.alt = image.alt;
     modal.showModal();
   });
 });
