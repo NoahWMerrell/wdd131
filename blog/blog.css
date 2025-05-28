@@ -32,7 +32,7 @@ nav a {
 h1 {
     text-align: center;
     font-size: 2em;
-    padding: 20px;
+    padding: 10px;
 }
 
 h2 {
@@ -60,10 +60,11 @@ nav > ul {
     margin: 10px;
 }
 
-#book-info {
+#book-article {
     display: grid;
     grid-template-columns: 1fr;
-    margin: 10px;
+    margin-top: 15px;
+    margin-bottom: 30px;
 }
 
 #book-blog div {
@@ -71,12 +72,12 @@ nav > ul {
     padding-bottom: 50px;
 }
 
-#book-blog #book {
+#book {
     border-left: 1px solid var(--gold-color);
     padding: 0px 20px;
 }
 
-#book-blog #book img {
+#book img {
     max-width: 100%;
     height: auto;
     display: block;
@@ -84,12 +85,12 @@ nav > ul {
     padding: 10px;
 }
 
-#book-blog #book-info #info p {
+#info p {
     text-align: right;
     padding: 5px 20px;
 }
 
-#book-blog #book-info #info .release-date {
+#info .release-date {
     font-size: 1.2em;
 }
 
@@ -100,7 +101,7 @@ nav > ul {
 }
 
 @media screen and (min-width: 700px) {
-    #book-info {
+    #book-article {
         grid-template-columns: 1fr 2fr;
     }
     #book-blog {

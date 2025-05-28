@@ -25,3 +25,28 @@ const articles = [
 		stars: '⭐⭐⭐⭐'
 	}
 ]
+
+console.log(articles[1].title);
+
+const container = document.querySelector('#book-info');
+
+articles.forEach(function(item) {
+	const book = `
+		<section id="book-article">
+            <div id="info">
+                <p class="release-date">${item.date}</p>
+                <p>${item.ages}</p>
+                <p>${item.genre}</p>
+                <p>${item.stars}</p>
+            </div>
+            <article id="book">
+                <h2>${item.title}</h2>
+                <img src="${item.imgSrc}" alt="${item.imgAlt}">
+                <p>${item.description}</p>
+            </article>
+		</section>
+	`
+	// const space  = <div class="book-article"></div>
+
+	container.innerHTML += book;
+}) 
