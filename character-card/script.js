@@ -30,6 +30,7 @@ health.textContent = character.health;
 
 document.querySelector('#attacked').addEventListener('click', function() {
     character.attacked();
+    level.textContent = character.level;
     health.textContent = character.health;
 });
 
