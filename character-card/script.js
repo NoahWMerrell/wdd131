@@ -6,7 +6,7 @@ const character = {
       image: 'https://andejuli.github.io/img/snortleblat.png',
       attacked() {
         if (this.health >= 20) {
-          this.level -= 1;
+          // this.level -= 1;
           this.health -= 20;
         } else {
             alert('Character Died');
