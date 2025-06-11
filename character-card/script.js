@@ -36,4 +36,5 @@ document.querySelector('#attacked').addEventListener('click', function() {
 document.querySelector('#levelup').addEventListener('click', function() {
     character.levelUp();
     level.textContent = character.level;
+    health.textContent = character.health;
 });
