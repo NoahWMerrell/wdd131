@@ -1,0 +1,164 @@
+ @import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap');
+ :root {
+ --primary-color: #1B98E0;
+ --secondary-color: #59c3c3;
+ --text-dark: #333;
+ --text-light: #ebebeb;
+ --primary-font: Arial, Helvetica,sans-serif;
+ --secondary-font: "Amatic SC";
+ }
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header {
+    border-bottom: 1px solid lightgray;
+    padding: 40px 20px 0 20px;
+}
+
+h1, h2, h3 {
+    font-family: var(--secondary-font);
+}
+
+h1 {
+    font-size: 3.5em;
+}
+
+p, button, input {
+    font-family: var(--primary-font)
+}
+
+img {
+	max-width: 100%;
+}
+
+#title {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+#title img {
+    width: 100px;
+}
+
+#title-text {
+    margin-bottom: -15px;
+    font-size: 50pt;
+}
+
+#searchbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 30px 0;
+    border: 2px solid var(--text-dark);
+    border-radius: 5px;
+}
+
+#searchbar input {
+    width: 100%;
+    height: 30px;
+    padding: 5px;
+    margin: 0 auto;
+    border: none;
+    font-size: 1.2em;
+    border-right: 2px solid var(--text-dark);
+}
+
+#searchbar img {
+    width: 30px;
+    padding: 4px;
+}
+
+.recipe-card {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    border: 1px solid var(--text-dark);
+    border-radius: 5px;
+    margin: 20px;
+    padding: 20px;
+}
+
+.recipe-card img {
+    width: 100%;
+    display: block;
+}
+
+.recipe-card-content > h2, p {
+    margin-top: 20px;
+}
+
+.recipe-card-content h2 {
+    font-size: 2em;
+    color: var(--primary-color);
+}
+
+.recipe-card-content p {
+    display: none;
+    font-size: 1.2em;
+}
+
+.recipe-card-content button {
+    padding: 5px 8px;
+    margin: 0 auto;
+    border: 1px solid var(--text-dark);
+    font-size: 1.2em;
+    background-color: white;
+}
+
+.social {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 5px;
+    
+}
+
+.social a {
+    width: 50px;
+}
+
+footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin: 40px 0;
+    padding: 0 5%;
+}
+
+footer a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+@media screen and (min-width: 600px) {
+    body {
+        margin: 0 20px;
+    }
+
+    .recipe-card {
+        flex-direction: row;
+    }
+
+    .recipe-card-content p {
+        display: block;
+    }
+
+    footer {
+        flex-direction: row-reverse;
+    }
+}
+
+@media screen and (min-width: 960px) {
+    body {
+        width: 960px;
+        margin: 0 auto;
+    }
+}
