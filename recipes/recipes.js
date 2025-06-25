@@ -279,3 +279,45 @@ const recipes = [
 		rating: 4
 	}
 ]
+
+let randomRecipe = Math.floor(Math.random() * recipes.length);
+console.log(randomRecipe);
+
+function tagTemplate(tags) {
+  return tags.map((tag) => `<button>${tag}</button>`).join(' ');
+}
+
+function ratingTemplate(rating){
+	let html = '';
+	for (let i = 1; i <= 5; i++) {
+		if (i <= rating) {
+			html += `<span aria-hidden="true" class="icon-star">⭐</span>`
+		} else {
+			html += `<span aria-hidden="true" class="icon-star">☆</span>`
+		}	
+	}
+	return html;
+};
+
+function recipeTemplate(recipe) {
+  return `
+  <section class="recipe-card">
+	<div class="recipe-card-image">
+		<img src="${recipe.image}" alt="#">
+	</div>
+	<div class="recipe-card-content">
+		${tagTemplate(recipe.tags)}
+		<h2>${recipe.name}</h2>
+		<span class="rating" role="img" aria-label="Rating: 4 out of 5 stars">${ratingTemplate(recipe.rating)}</span>
+		<p class="description">${recipe.description}</p>
+	</div>
+  </section>`
+}
+
+function renderRecipe(recipe) {
+  let recipeContainer = document.querySelector('#recipe-container');
+  let html = recipeTemplate(recipe);
+  recipeContainer.innerHTML += html;
+}
+
+renderRecipe(recipes[randomRecipe]);

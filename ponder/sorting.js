@@ -136,3 +136,35 @@ function compareHikes(a,b) {
 let sortedHikes = filteredHikes.sort(compareHikes);
 
 console.log(filteredHikes);
+
+
+// Show random recipe
+
+let randomNum = Math.floor(Math.random() * hikes.length);
+console.log(randomNum);
+
+
+function tagTemplate(tags) {
+  return tags.map((tag) => `<button>${tag}</button>`).join(' ');
+}
+
+function hikesTemplate(hike) {
+  return `
+  <div class="hike-card">
+    <div class="hike-content">
+      <h2>${hike.name}</h2>
+      <div class="hike-tags">
+        ${tagTemplate(hike.tags)}
+      </div>
+      <p>${hike.description}</p>
+    </div>
+  </div>`
+}
+
+function renderHike(hike) {
+  let hikeContainer = document.querySelector('#hike-container');
+  let html = hikesTemplate(hike);
+  hikeContainer.innerHTML += html;
+}
+
+renderHike(hikes[randomNum]);
