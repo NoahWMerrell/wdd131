@@ -280,13 +280,16 @@ const recipes = [
 	}
 ]
 
+// Random number for recipe
 let randomRecipe = Math.floor(Math.random() * recipes.length);
 console.log(randomRecipe);
 
+// Format for the tag
 function tagTemplate(tags) {
   return tags.map((tag) => `<button>${tag}</button>`).join(' ');
 }
 
+// Format for the rating
 function ratingTemplate(rating){
 	let html = '';
 	for (let i = 1; i <= 5; i++) {
@@ -299,6 +302,7 @@ function ratingTemplate(rating){
 	return html;
 };
 
+// Format for a recipe
 function recipeTemplate(recipe) {
   return `
   <section class="recipe-card">
@@ -314,6 +318,7 @@ function recipeTemplate(recipe) {
   </section>`
 }
 
+// Rendering a recipe
 function renderRecipe(recipe) {
   let recipeContainer = document.querySelector('#recipe-container');
   let html = recipeTemplate(recipe);
@@ -321,3 +326,43 @@ function renderRecipe(recipe) {
 }
 
 renderRecipe(recipes[randomRecipe]);
+
+// Clearing the current recipes and rendering multiple recipes
+function renderRecipes(renderedRecipes) {
+  let recipeContainer = document.querySelector('#recipe-container');
+  recipeContainer.innerHTML = "";
+  renderedRecipes.forEach(renderRecipe);
+}
+
+const searchInput = document.querySelector('#searchbar');
+
+// Getting search input, filtering it, and then sorting it
+searchInput.addEventListener('input', function (search) {
+	const query = search.target.value.toLowerCase();
+	const filteredRecipes = filterRecipes(query);
+	const sortedRecipes = filteredRecipes.sort(compareRecipes);
+	renderRecipes(sortedRecipes);
+});
+
+// Filtering recipes
+function filterRecipes(query) {
+	return recipes.filter(function(recipe) {
+    return (
+      recipe.name.toLowerCase().includes(query) ||
+      recipe.description.toLowerCase().includes(query) ||
+      recipe.tags.some(tag => tag.toLowerCase().includes(query)) ||
+      recipe.recipeIngredient.some(ingredient => ingredient.toLowerCase().includes(query))
+    );
+  });
+}
+
+// Sorting recipes
+function compareRecipes(a,b) {
+  if (a.name < b.name) {
+    return -1;
+  } else if (a.name > b.name) {
+    return 1;
+  }
+  // a must be equal to b
+  return 0;
+}

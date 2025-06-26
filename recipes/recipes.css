@@ -87,7 +87,10 @@ img {
 }
 
 .recipe-card img {
-    width: 100%;
+    /* max-width: 250px; */
+    overflow: hidden;
+    aspect-ratio: 1/1;
+    object-fit: cover; 
     display: block;
 }
 
@@ -149,6 +152,10 @@ footer a {
 
     .recipe-card-content p {
         display: block;
+    }
+
+    .recipe-card img {
+        max-width: 250px;
     }
 
     footer {
