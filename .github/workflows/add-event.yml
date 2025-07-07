@@ -24,10 +24,23 @@ jobs:
           const fs = require('fs');
           const path = './events.json';
           const newEvent = require('./new_event.json');
+
           let events = [];
+
           if (fs.existsSync(path)) {
-            events = JSON.parse(fs.readFileSync(path));
+            const data = fs.readFileSync(path, 'utf8').trim();
+            if (data.length > 0) {
+              try {
+                events = JSON.parse(data);
+              } catch (err) {
+                console.log("Warning: Could not parse existing events.json, starting fresh.");
+                events = [];
+              }
+            }
+          } else {
+            console.log("events.json not found, creating new file.");
           }
+
           events.push(newEvent);
           fs.writeFileSync(path, JSON.stringify(events, null, 2));
           EOF
