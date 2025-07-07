@@ -1,0 +1,164 @@
+@import url('https://fonts.googleapis.com/css2?family=Libertinus+Math&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import url("https://fonts.googleapis.com/css?family=IM+Fell+French+Canon+SC|Lato");
+
+:root {
+  --primary-color: #360568;
+  --secondary-color: #5B2A86;
+  --accent1-color: #7785AC;
+  --accent2-color: #9AC6C5;
+
+  --heading-font: "Libertinus Math", "IM Fell French Canon SC", sans-serif;
+  --paragraph-font: "Lato", Helvetica, sans-serif;
+
+  /* these colors below should be chosen from among your palette colors above */
+  --headline-color-on-white: var(--primary-color);  /* headlines on a white background */ 
+  --headline-color-on-color: white; /* headlines on a colored background */ 
+  --paragraph-color-on-white: var(--primary-color); /* paragraph text on a white background */ 
+  --paragraph-color-on-color: white; /* paragraph text on a colored background */ 
+  --paragraph-background-color: var(--primary-color);
+  --nav-link-color: var(--primary-color);
+  --nav-background-color: var(--accent2-color);
+  --nav-hover-link-color: white;
+  --nav-hover-background-color: var(--primary-color);
+}
+
+body {
+    margin: 0 auto;
+}
+
+.home-parallax {
+    background-image: url("images/helena-lopes-PGnqT0rXWLs-unsplash.jpg");
+    font-size: 3em;
+  
+    min-height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.page-title {
+    color: var(--primary-color);
+    text-shadow: 0 0 50px white;
+}
+
+h1, h2 {
+    font-family: var(--heading-font);
+    font-size: 2.5em;
+    margin: 0.5em;
+}
+
+h3, h4, h5, h6 {
+    font-family: var(--heading-font);
+    font-size: 1.5em;
+    margin: 0.5em;
+}
+
+p {
+    font-family: var(--paragraph-font);
+    padding: 0.25em;
+    font-size: 1.5em;
+    margin: 0.5em;
+}
+
+ul {
+    font-family: var(--paragraph-font);
+    padding: 0.25em;
+    font-size: 1.5em;
+    list-style-type: disc;
+    list-style-position: inside;
+    margin: 0.5em;
+}
+
+.main-content {
+    max-width: 1000px;
+    min-height: 25rem;
+    justify-self: center;
+}
+
+header {
+    padding: 10px;
+    color: var(--headline-color-on-color);
+    background-color: var(--paragraph-background-color);
+    display: grid;
+    grid-template-columns: 1fr;
+    text-align: center;
+    align-content: stretch;
+}
+
+.logo {
+    width: 7em;
+    margin: 10px;
+}
+
+nav {
+    background-color: var(--nav-background-color);
+    text-align: center;
+    display: grid;
+    grid-template-columns: 1fr;
+    padding: 0.25em;
+    font-weight: bold;
+    border-radius: 10px;
+    font-family: "Lato", Helvetica, sans-serif;
+}
+
+nav a {
+    font-size: 1.5em;
+    line-height: 3em;
+    min-width: 120px;
+    text-decoration: none;
+    padding: 0.5em 0;
+}
+
+nav a:link, nav a:visited {
+    color: var(--nav-link-color);
+    text-shadow: 0 0 50px white;
+}
+
+nav a:hover {
+    color: var(--nav-hover-link-color);
+    background-color: var(--nav-hover-background-color);
+    border-radius: 5px;
+    border-color: var(--secondary-color);
+}
+
+footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1em;
+    color: var(--headline-color-on-color);
+    background-color: var(--paragraph-background-color);
+}
+
+footer a {
+    color: var(--paragraph-color-on-color);
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+    color: var(--accent1-color)
+}
+
+@media (min-width: 700px) {
+    .logo {
+        width: 5em;
+    }
+    header {
+        grid-template-columns: 25% 1fr;
+        text-align: left;
+    }
+    nav {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    footer {
+        flex-direction: row;
+    }
+}
