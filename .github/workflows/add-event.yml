@@ -18,7 +18,12 @@ jobs:
           node-version: '16'
 
       - name: Prepare event JSON
-        run: echo '${{ toJson(github.event.client_payload) }}' > new_event.json
+        run: |
+          node -e "
+            const fs = require('fs');
+            const event = ${{ toJson(github.event.client_payload) }};
+            fs.writeFileSync('new_event.json', JSON.stringify(event, null, 2));
+          "
 
       - name: Append new event to events.json
         run: |
@@ -35,12 +40,12 @@ jobs:
               try {
                 events = JSON.parse(data);
               } catch (err) {
-                console.log("Warning: Could not parse existing events.json, starting fresh.");
+                console.log('Warning: Could not parse existing events.json, starting fresh.');
                 events = [];
               }
             }
           } else {
-            console.log("events.json not found, creating new file.");
+            console.log('events.json not found, creating new file.');
           }
 
           events.push(newEvent);
