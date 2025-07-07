@@ -19,7 +19,7 @@ jobs:
 
       - name: Prepare event JSON
         run: |
-          echo '${{ toJson(github.event.client_payload) }}' | jq '.' > new_event.json
+          printf '%s' "${{ toJson(github.event.client_payload) }}" > new_event.json
 
       - name: Append or update event in events.json
         run: |
