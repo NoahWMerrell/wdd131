@@ -18,7 +18,8 @@ jobs:
           node-version: '16'
 
       - name: Prepare event JSON
-        run: echo '${{ toJson(github.event.client_payload) }}' > new_event.json
+        run: |
+          echo '${{ toJson(github.event.client_payload) }}' | jq '.' > new_event.json
 
       - name: Append or update event in events.json
         run: |
@@ -65,5 +66,9 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add wardboard/events.json
-          git commit -m "Add event: ${{ github.event.client_payload.title }}"
-          git push origin HEAD:${{ github.ref_name }}
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Add event: ${{ github.event.client_payload.title }}"
+            git push origin HEAD:${{ github.ref_name }}
+          fi
