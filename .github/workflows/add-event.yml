@@ -1,3 +1,9 @@
+name: Add Event via Email
+
+on:
+  repository_dispatch:
+    types: [add_event]
+
 jobs:
   update-events:
     runs-on: ubuntu-latest
