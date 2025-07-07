@@ -19,11 +19,14 @@ jobs:
 
       - name: Prepare event JSON
         run: |
-          node -e '
-            const fs = require("fs");
-            const event = ${{ toJson(github.event.client_payload) }};
-            fs.writeFileSync("new_event.json", JSON.stringify(event, null, 2));
-          '
+          cat << 'EOF' > write-event.js
+          const fs = require("fs");
+          const event = JSON.parse(process.env.EVENT_PAYLOAD);
+          fs.writeFileSync("new_event.json", JSON.stringify(event, null, 2));
+          EOF
+          node write-event.js
+        env:
+          EVENT_PAYLOAD: ${{ toJson(github.event.client_payload) }}
 
       - name: Append new event to events.json
         run: |
