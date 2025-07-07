@@ -24,7 +24,7 @@ jobs:
         run: |
           node <<EOF
           const fs = require('fs');
-          const path = './events.json';
+          const path = './wardboard/events.json';
           const newEvent = require('./new_event.json');
 
           let events = [];
