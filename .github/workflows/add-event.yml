@@ -18,11 +18,11 @@ jobs:
       - name: Prepare event JSON
         run: echo '${{ toJson(github.event.client_payload) }}' > new_event.json
 
-      - name: Append new event to events.json
+      - name: Append new event to wardboard/events.json
         run: |
           node <<EOF
           const fs = require('fs');
-          const path = './events.json';
+          const path = './wardboard/events.json';
           const newEvent = require('./new_event.json');
 
           let events = [];
@@ -51,7 +51,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add events.json
+          git add wardboard/events.json
           git commit -m "Add event: ${{ github.event.client_payload.title }}"
           git remote set-url origin https://x-access-token:${PAT_TOKEN}@github.com/${{ github.repository }}.git
           git push origin HEAD:${{ github.ref_name }}
