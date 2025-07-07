@@ -24,11 +24,11 @@ jobs:
 
       - name: Write event JSON file safely
         run: |
-          node -e "
-            const fs = require('fs');
+          node -e '
+            const fs = require("fs");
             const event = ${{ toJson(github.event.client_payload) }};
-            fs.writeFileSync('new_event.json', JSON.stringify(event, null, 2));
-          "
+            fs.writeFileSync("new_event.json", JSON.stringify(event, null, 2));
+          '
 
       - name: Append or update event in events.json
         run: |
