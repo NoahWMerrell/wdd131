@@ -1,33 +1,27 @@
-name: Add Event via Email
-
-on:
-  repository_dispatch:
-    types: [add_event]
-
 jobs:
   update-events:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
 
       - name: Prepare event JSON
-        run: |
-          echo '${{ toJson(github.event.client_payload) }}' > new_event.json
+        run: echo '${{ toJson(github.event.client_payload) }}' > new_event.json
 
       - name: Append new event to events.json
         run: |
           node <<EOF
           const fs = require('fs');
-          const path = './events.json'; // Change to ./public/events.json if needed
+          const path = './events.json';
           const newEvent = require('./new_event.json');
-
           let events = [];
           if (fs.existsSync(path)) {
             events = JSON.parse(fs.readFileSync(path));
           }
-
           events.push(newEvent);
           fs.writeFileSync(path, JSON.stringify(events, null, 2));
           EOF
