@@ -20,7 +20,7 @@ jobs:
       - name: Prepare event JSON
         run: echo '${{ toJson(github.event.client_payload) }}' > new_event.json
 
-      - name: Append new event to events.json
+      - name: Append or update event in events.json
         run: |
           node <<EOF
           const fs = require('fs');
@@ -43,9 +43,22 @@ jobs:
             console.log("events.json not found, creating new file.");
           }
 
-          events.push(newEvent);
+          // Find index of existing event with same title (case-insensitive)
+          const index = events.findIndex(e => e.title.toLowerCase() === newEvent.title.toLowerCase());
+
+          if (index !== -1) {
+            // Update existing event
+            events[index] = newEvent;
+            console.log(`Updated event with title: ${newEvent.title}`);
+          } else {
+            // Add new event
+            events.push(newEvent);
+            console.log(`Added new event with title: ${newEvent.title}`);
+          }
+
           fs.writeFileSync(path, JSON.stringify(events, null, 2));
           EOF
+
 
       - name: Commit and push changes
         run: |
