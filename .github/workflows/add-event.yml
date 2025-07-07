@@ -18,7 +18,7 @@ jobs:
           node-version: '16'
 
       - name: Prepare event JSON
-        run: echo "${{ toJson(github.event.client_payload) }}" > new_event.json
+        run: echo `${{ toJson(github.event.client_payload) }}` > new_event.json
 
       - name: Append new event to events.json
         run: |
