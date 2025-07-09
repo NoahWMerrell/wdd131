@@ -1,0 +1,79 @@
+name: Add or Delete Event via Email
+
+on:
+  repository_dispatch:
+    types: [add_event, delete_event]
+
+jobs:
+  update-events:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.PAT_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Prepare event JSON
+        run: |
+          cat << 'EOF' > write-event.js
+          const fs = require("fs");
+          const event = JSON.parse(process.env.EVENT_PAYLOAD);
+          fs.writeFileSync("new_event.json", JSON.stringify(event, null, 2));
+          EOF
+
+          node write-event.js
+        env:
+          EVENT_PAYLOAD: ${{ toJson(github.event.client_payload) }}
+
+      - name: Modify events.json (add or delete)
+        run: |
+          node <<EOF
+          const fs = require('fs');
+          const path = './wardboard/events.json';
+          const newEvent = require('./new_event.json');
+          const eventType = process.env.EVENT_TYPE;
+
+          let events = [];
+          if (fs.existsSync(path)) {
+            try {
+              events = JSON.parse(fs.readFileSync(path, 'utf8'));
+            } catch (err) {
+              console.log("Warning: Could not parse existing events.json. Starting fresh.");
+              events = [];
+            }
+          }
+
+          if (eventType === "add_event") {
+            events.push(newEvent);
+            console.log("Added event:", newEvent.title);
+          } else if (eventType === "delete_event") {
+            const titleToDelete = newEvent.title.toLowerCase();
+            const before = events.length;
+            events = events.filter(e => e.title.toLowerCase() !== titleToDelete);
+            const after = events.length;
+            console.log(`Deleted ${before - after} event(s) titled '${newEvent.title}'`);
+          }
+
+          fs.writeFileSync(path, JSON.stringify(events, null, 2));
+          EOF
+        env:
+          EVENT_TYPE: ${{ github.event.action || github.event.event_type }}
+
+      - name: Commit and push changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add wardboard/events.json
+
+          if [[ "${{ github.event.event_type }}" == "delete_event" ]]; then
+            git commit -m "Delete event: ${{ github.event.client_payload.title }}"
+          else
+            git commit -m "Add event: ${{ github.event.client_payload.title }}"
+          fi
+
+          git push origin HEAD:${{ github.ref_name }}
