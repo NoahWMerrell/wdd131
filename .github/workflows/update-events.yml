@@ -30,7 +30,7 @@ jobs:
         env:
           EVENT_PAYLOAD: ${{ toJson(github.event.client_payload) }}
 
-      - name: Modify events.json (add or remove)
+      - name: Modify events.json (add or delete)
         run: |
           node <<EOF
           const fs = require('fs');
@@ -49,20 +49,31 @@ jobs:
           }
 
           if (eventType === "add_event") {
-            events.push(newEvent);
-            console.log("Added event:", newEvent.title);
-          } else if (eventType === "remove_event") {
-            const titleToRemove = newEvent.title.toLowerCase();
+            // Check for existing event with same title
+            const title = newEvent.title.toLowerCase();
+            const existingIndex = events.findIndex(e => e.title.toLowerCase() === title);
+
+            if (existingIndex !== -1) {
+              console.log("Updating existing event:", newEvent.title);
+              events[existingIndex] = newEvent;
+            } else {
+              console.log("Adding new event:", newEvent.title);
+              events.push(newEvent);
+            }
+
+          } else if (eventType === "delete_event") {
+            const titleToDelete = newEvent.title.toLowerCase();
             const before = events.length;
-            events = events.filter(e => e.title.toLowerCase() !== titleToRemove);
+            events = events.filter(e => e.title.toLowerCase() !== titleToDelete);
             const after = events.length;
-            console.log(`Removed ${before - after} event(s) titled '${newEvent.title}'`);
+            console.log(`Deleted ${before - after} event(s) titled '${newEvent.title}'`);
           }
 
           fs.writeFileSync(path, JSON.stringify(events, null, 2));
           EOF
         env:
           EVENT_TYPE: ${{ github.event.action || github.event.event_type }}
+
 
       - name: Commit and push changes
         run: |
