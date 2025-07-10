@@ -85,6 +85,7 @@ ul {
 .main-content {
     max-width: 1000px;
     min-height: 50vh;
+    width: 100%;
     justify-self: center;
 }
 
@@ -142,6 +143,7 @@ nav a:hover {
     margin: 10px;
     border: 2px solid var(--secondary-color);
     border-radius: 5px;
+    width: 100%;
 }
 
 #searchbar input {
@@ -158,6 +160,7 @@ nav a:hover {
     margin: 10px;
     border: 2px solid var(--secondary-color);
     border-radius: 5px;
+    width: 100%;
 }
 
 footer {
