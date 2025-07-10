@@ -30,7 +30,7 @@ jobs:
         env:
           EVENT_PAYLOAD: ${{ toJson(github.event.client_payload) }}
 
-      - name: Modify events.json (add or delete)
+      - name: Modify events.json (add or remove)
         run: |
           node <<EOF
           const fs = require('fs');
@@ -61,12 +61,12 @@ jobs:
               events.push(newEvent);
             }
 
-          } else if (eventType === "delete_event") {
-            const titleToDelete = newEvent.title.toLowerCase();
+          } else if (eventType === "remove_event") {
+            const titleToRemove = newEvent.title.toLowerCase();
             const before = events.length;
-            events = events.filter(e => e.title.toLowerCase() !== titleToDelete);
+            events = events.filter(e => e.title.toLowerCase() !== titleToRemove);
             const after = events.length;
-            console.log(`Deleted ${before - after} event(s) titled '${newEvent.title}'`);
+            console.log(`Removed ${before - after} event(s) titled '${newEvent.title}'`);
           }
 
           fs.writeFileSync(path, JSON.stringify(events, null, 2));
