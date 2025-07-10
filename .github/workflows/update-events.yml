@@ -30,25 +30,25 @@ jobs:
         env:
           EVENT_PAYLOAD: ${{ toJson(github.event.client_payload) }}
 
-      - name: Modify events.json (add or remove)
+      - name: Write modify-events.js
         run: |
-          node <<EOF
+          cat << 'EOF' > modify-events.js
           const fs = require('fs');
           const path = './wardboard/events.json';
           let newEvent = require('./new_event.json');
           const eventType = process.env.EVENT_TYPE;
 
-          // --- Normalize Date ---
+          // --- Normalize date ---
           if (newEvent.date) {
             const parsedDate = new Date(newEvent.date);
             if (!isNaN(parsedDate)) {
-              newEvent.date = parsedDate.toISOString().split('T')[0]; // "YYYY-MM-DD"
+              newEvent.date = parsedDate.toISOString().split('T')[0];
             } else {
               console.warn("Invalid date format. Keeping original:", newEvent.date);
             }
           }
 
-          // --- Normalize Time ---
+          // --- Normalize time ---
           if (newEvent.time) {
             const timeText = newEvent.time.trim();
             const match = timeText.match(/(\\d{1,2})(?::(\\d{2}))?\\s*(AM|PM)?/i);
@@ -61,7 +61,7 @@ jobs:
               if (meridian === 'AM' && hour === 12) hour = 0;
 
               const pad = n => n.toString().padStart(2, '0');
-              newEvent.time = `${pad(hour)}:${pad(minute)}`;
+              newEvent.time = pad(hour) + ':' + pad(minute);
             } else {
               console.warn("Could not parse time:", newEvent.time);
             }
@@ -71,16 +71,14 @@ jobs:
           if (fs.existsSync(path)) {
             try {
               events = JSON.parse(fs.readFileSync(path, 'utf8'));
-            } catch (err) {
-              console.log("Warning: Could not parse existing events.json. Starting fresh.");
-              events = [];
+            } catch {
+              console.warn("Failed to parse existing events.json. Starting fresh.");
             }
           }
 
           if (eventType === "add_event") {
             const title = newEvent.title.toLowerCase();
             const existingIndex = events.findIndex(e => e.title.toLowerCase() === title);
-
             if (existingIndex !== -1) {
               console.log("Updating existing event:", newEvent.title);
               events[existingIndex] = newEvent;
@@ -88,7 +86,6 @@ jobs:
               console.log("Adding new event:", newEvent.title);
               events.push(newEvent);
             }
-
           } else if (eventType === "remove_event") {
             const titleToRemove = newEvent.title.toLowerCase();
             const before = events.length;
@@ -99,6 +96,9 @@ jobs:
 
           fs.writeFileSync(path, JSON.stringify(events, null, 2));
           EOF
+
+      - name: Run modify-events.js
+        run: node modify-events.js
         env:
           EVENT_TYPE: ${{ github.event.action || github.event.event_type }}
 
