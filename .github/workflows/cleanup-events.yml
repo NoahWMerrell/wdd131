@@ -6,6 +6,7 @@ on:
       - main
   schedule:
     - cron: '0 0 * * *'  # Runs every day at midnight UTC
+  workflow_dispatch:      # <-- add this line for manual trigger
 
 jobs:
   cleanup:
