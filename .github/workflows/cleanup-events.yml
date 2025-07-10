@@ -22,7 +22,7 @@ jobs:
 
       - name: Remove past events
         run: |
-          node cleanup-events.js
+          node .github/workflows/cleanup-events.js
 
       - name: Commit & push if changes
         run: |
