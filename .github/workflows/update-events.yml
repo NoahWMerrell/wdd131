@@ -35,8 +35,37 @@ jobs:
           node <<EOF
           const fs = require('fs');
           const path = './wardboard/events.json';
-          const newEvent = require('./new_event.json');
+          let newEvent = require('./new_event.json');
           const eventType = process.env.EVENT_TYPE;
+
+          // --- Normalize Date ---
+          if (newEvent.date) {
+            const parsedDate = new Date(newEvent.date);
+            if (!isNaN(parsedDate)) {
+              newEvent.date = parsedDate.toISOString().split('T')[0]; // "YYYY-MM-DD"
+            } else {
+              console.warn("Invalid date format. Keeping original:", newEvent.date);
+            }
+          }
+
+          // --- Normalize Time ---
+          if (newEvent.time) {
+            const timeText = newEvent.time.trim();
+            const match = timeText.match(/(\\d{1,2})(?::(\\d{2}))?\\s*(AM|PM)?/i);
+            if (match) {
+              let hour = parseInt(match[1], 10);
+              const minute = parseInt(match[2] || '0', 10);
+              const meridian = match[3] ? match[3].toUpperCase() : null;
+
+              if (meridian === 'PM' && hour < 12) hour += 12;
+              if (meridian === 'AM' && hour === 12) hour = 0;
+
+              const pad = n => n.toString().padStart(2, '0');
+              newEvent.time = `${pad(hour)}:${pad(minute)}`;
+            } else {
+              console.warn("Could not parse time:", newEvent.time);
+            }
+          }
 
           let events = [];
           if (fs.existsSync(path)) {
@@ -49,7 +78,6 @@ jobs:
           }
 
           if (eventType === "add_event") {
-            // Check for existing event with same title
             const title = newEvent.title.toLowerCase();
             const existingIndex = events.findIndex(e => e.title.toLowerCase() === title);
 
@@ -66,14 +94,13 @@ jobs:
             const before = events.length;
             events = events.filter(e => e.title.toLowerCase() !== titleToRemove);
             const after = events.length;
-            console.log(`Removed ${before - after} event(s) titled "${newEvent.title}"`);
+            console.log(\`Removed \${before - after} event(s) titled "\${newEvent.title}"\`);
           }
 
           fs.writeFileSync(path, JSON.stringify(events, null, 2));
           EOF
         env:
           EVENT_TYPE: ${{ github.event.action || github.event.event_type }}
-
 
       - name: Commit and push changes
         run: |
