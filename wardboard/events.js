@@ -43,6 +43,9 @@ function filterEvents(query) {
 
 // Sorting events alphabetically by title
 function compareEvents(a, b) {
+  const dateCompare = a.date.localeCompare(b.date);
+  if (dateCompare !== 0) return dateCompare;
+  // Dates are equal, compare titles alphabetically
   return a.title.localeCompare(b.title);
 }
 
