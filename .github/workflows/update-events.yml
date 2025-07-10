@@ -66,7 +66,7 @@ jobs:
             const before = events.length;
             events = events.filter(e => e.title.toLowerCase() !== titleToRemove);
             const after = events.length;
-            console.log(`Removed ${before - after} event(s) titled '${newEvent.title}'`);
+            console.log(`Removed ${before - after} event(s) titled "${newEvent.title}"`);
           }
 
           fs.writeFileSync(path, JSON.stringify(events, null, 2));
