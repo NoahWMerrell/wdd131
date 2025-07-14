@@ -26,7 +26,7 @@ body {
     margin: 0 auto;
 }
 
-.home-parallax, .events-parallax {
+.home-parallax, .events-parallax, .about-parallax {
     font-size: 3em;
   
     min-height: 300px;
@@ -49,9 +49,16 @@ body {
     background-image: url("images/eric-rothermel-FoKO4DpXamQ-unsplash.jpg");
 }
 
+.about-parallax {
+    background-image: url("images/romain-dancre-doplSDELX7E-unsplash.jpg");
+}
+
 .page-title {
     color: var(--primary-color);
     text-shadow: 0 0 50px white;
+    background-color: var(--accent2-color);
+    padding: 10px 100px;
+    border-radius: 100px;
 }
 
 h1, h2 {
@@ -87,6 +94,16 @@ ul {
     min-height: 50vh;
     width: 100%;
     justify-self: center;
+}
+
+.email-contents {
+    background-color: var(--accent2-color);
+    border-radius: 40px;
+    padding: 20px;
+}
+
+.line-underneath {
+    border-bottom: 2px solid var(--secondary-color);
 }
 
 header {

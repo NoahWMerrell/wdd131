@@ -6,7 +6,7 @@ function headerTemplate() {
   <nav>
     <a href="index.html">Home</a>
     <a href="events.html">Events</a>
-    <a href="index.html">About</a>
+    <a href="about.html">About</a>
   </nav>`;
 }
 
