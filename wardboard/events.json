@@ -12,5 +12,12 @@
     "location": "Church Building",
     "time": "9:00 PM",
     "title": "Personal Finance Class"
+  },
+  {
+    "date": "2025-07-30",
+    "description": "Enjoy a fun night with food and friends.",
+    "location": "Porter Park",
+    "time": "5:30pm",
+    "title": "BBQ Night"
   }
 ]
