@@ -15,8 +15,8 @@ header.innerHTML = headerTemplate();
 
 function footerTemplate() {
   return `
-  <h4 class="copy">Wardboard &copy; 2025</h4>
-  <h4>Noah Merrell</h4>`;
+  <h3 class="copy">Wardboard &copy; 2025</h3>
+  <h3>Noah Merrell</h3>`;
 }
 
 let footer = document.querySelector('footer');
