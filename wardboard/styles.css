@@ -24,6 +24,7 @@
 
 body {
     margin: 0 auto;
+    font-display: swap;
 }
 
 .home-parallax, .events-parallax, .about-parallax {
@@ -182,6 +183,10 @@ nav a:hover {
     border: 2px solid var(--secondary-color);
     border-radius: 5px;
     width: 100%;
+}
+
+#event-container {
+  min-height: 50vh;
 }
 
 footer {
