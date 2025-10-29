@@ -5,7 +5,7 @@ body {
 form {
     display: grid;
     grid-template-columns: 100px 250px 100px;
-    grid-template-rows: 30px 200px 30px;
+    grid-template-rows: 30px 200px 30px 30px;
     gap: 20px;
     font-family: 'Courier New', Courier, monospace;
     z-index: 0;
