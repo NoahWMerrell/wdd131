@@ -296,7 +296,7 @@ function ratingTemplate(rating){
 		if (i <= rating) {
 			html += `<span aria-hidden="true" class="icon-star">⭐</span>`
 		} else {
-			html += `<span aria-hidden="true" class="icon-star">☆</span>`
+			html += `<span aria-hidden="true" class="icon-star-empty">☆</span>`
 		}	
 	}
 	return html;
